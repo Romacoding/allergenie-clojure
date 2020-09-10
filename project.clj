@@ -9,7 +9,9 @@
                  [compojure "1.6.2"]
                  [yogthos/config "1.1.7"]
                  [ring/ring-defaults "0.3.2"]
-                 [ring/ring-session-timeout "0.2.0"]]
+                 [ring/ring-session-timeout "0.2.0"]
+                 [clj-http "3.10.2"]
+                 [org.clojure/data.json "1.0.0"]]
   :main ^:skip-aot allergenie.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
