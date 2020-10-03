@@ -9,13 +9,14 @@
             [clojure.pprint]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
-            [clojure.string])
+            [clojure.string :as str])
   (:gen-class))
 
 (def pollen-info (atom {}))
 (def zip-info (atom []))
 (def air-info (atom []))
 (def weather-info(atom {}))
+(def input-info(atom 0))
 
 (defc main-page []
   [:div {:class "main-page-div"}
@@ -24,11 +25,13 @@
    [:input {:type      "text"
             :allow-full-screen true
             :id        "comment"
-            :class     ["input_active" "input_error"]
+            :class     ["input_active"]
             :style     {:background-color "#EEE"
                         :margin-left      42}
             :on-change (fn [e]
-                         (println (.. e -target -value)))}]
+                         (swap! input-info assoc (.. e -target -value))
+                         (println (.. e -target -value))
+                         (println @input-info))}]
    [:p (str "Air quality info: " (:zip (first @air-info)))]
    [:p (str "Pollen index for today is: " (:Index @pollen-info))]
    [:p (str "Weather info: " (:description @weather-info) ". " "Temperature: " (:temperature @weather-info) "°F")]])
@@ -78,7 +81,7 @@ Our mission is to improve the quality of life through timely and accurate inform
 
 ; (defmacro fmt [^String string]
 ;   (let [-re #"#\{(.*?)\}"
-;         fstr (clojure.string/replace string -re "%s")
+;         fstr (str/replace string -re "%s")
 ;         fargs (map #(read-string (second %)) (re-seq -re string))]
 ;     `(format ~fstr ~@fargs)))
 
@@ -115,11 +118,11 @@ Our mission is to improve the quality of life through timely and accurate inform
     ; (reduce (fn [acc {:keys [Name] :as it}]
     ;           (assoc acc Name it)) {} (:data body)) 
     ; (clojure.pprint/pprint body)
-    (swap! weather-info assoc :description (clojure.string/capitalize (:description (first
+    (swap! weather-info assoc :description (str/capitalize (:description (first
                                                                                (:weather body))))
            :temperature (int (Math/floor (- (* 1.8 (:temp (:main body))) 459.67))))
     (println "Weather information")
-    (println (clojure.string/capitalize (:description (first
+    (println (str/capitalize (:description (first
                                                        (:weather body)))))
     (println (str "Temperature: " (int (Math/floor (- (* 1.8 (:temp (:main body))) 459.67))) " F"))))
 
@@ -131,7 +134,7 @@ Our mission is to improve the quality of life through timely and accurate inform
                             :key-fn keyword)]
     (swap! pollen-info assoc :Index (:Index (nth (:periods (:Location body)) 1)))
     (println "Pollen information")
-    (println @pollen-info)
+    ;(println @pollen-info)
     (println (str "Current polen index: " (:Index (nth (:periods (:Location body)) 1))))))
 
 (get-pollen)
