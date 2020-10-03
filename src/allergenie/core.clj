@@ -9,14 +9,13 @@
             [clojure.pprint :refer [pprint]]
             [clojure.string :as str]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
-            )
+            [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]])
   (:gen-class))
 
 (def pollen-info (atom {}))
 (def zip-info (atom []))
 (def air-info (atom []))
-(def weather-info(atom {}))
+(def weather-info (atom {}))
 
 (defc main-page []
   [:div {:class "main-page-div"}
@@ -88,8 +87,7 @@ Our mission is to improve the quality of life through timely and accurate inform
         body (json/read-str (resp :body)
                             :key-fn keyword)]
     (swap! zip-info conj {:zip (:zip body)}))
-  (println (str "Your zip code is: "(:zip (first @zip-info))))
-  )
+  (println (str "Your zip code is: " (:zip (first @zip-info)))))
 (get-zip)
 
 (defn get-air []
@@ -109,7 +107,7 @@ Our mission is to improve the quality of life through timely and accurate inform
         body (json/read-str (resp :body)
                             :key-fn keyword)]
     (swap! weather-info assoc :description (str/capitalize (:description (first
-                                                                               (:weather body))))
+                                                                          (:weather body))))
            :temperature (int (Math/floor (- (* 1.8 (:temp (:main body))) 459.67))))
     (println "Weather information")
     (println (str/capitalize (:description (first (:weather body)))))
@@ -124,8 +122,7 @@ Our mission is to improve the quality of life through timely and accurate inform
     (swap! pollen-info assoc :Index (:Index (nth (:periods (:Location body)) 1)))
     (swap! pollen-info assoc :Triggers (first (:Triggers (nth (:periods (:Location body)) 1))))
     (println "Pollen information")
-    (println (str "Current polen index: " (:Index (nth (:periods (:Location body)) 1))))
-  ))
+    (println (str "Current polen index: " (:Index (nth (:periods (:Location body)) 1))))))
 
 (get-pollen)
 
