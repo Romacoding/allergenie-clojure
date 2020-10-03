@@ -1,1 +1,1 @@
-web: java $JVM_OPTS -cp target/allergenie-standalone.jar clojure.main -m allergenie.web
+web: lein run -m allergenie.core
