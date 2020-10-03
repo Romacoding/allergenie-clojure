@@ -145,4 +145,7 @@ Our mission is to improve the quality of life through timely and accurate inform
 (defn -main
   [& args]
   #_(println (str "Running webserver at http:/127.0.0.1:" (:port env)  "/"))
-  (run-jetty (wrap-defaults app site-defaults) {:port (:port env)}))
+  (let [port (Integer/parseInt (System/getenv "PORT"))]
+    (run-jetty (wrap-defaults app site-defaults) {:port port}))
+  #_(run-jetty (wrap-defaults app site-defaults) {:port (:port env)})
+  )
