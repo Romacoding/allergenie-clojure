@@ -14,4 +14,5 @@
                  [org.clojure/data.json "1.0.0"]]
   :main ^:skip-aot allergenie.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :min-lein-version "2.0.0")
