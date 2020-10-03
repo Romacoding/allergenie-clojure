@@ -26,13 +26,13 @@
     [:a {:href "/about" :style {:padding "10px"}} "About page"]]
    [:h3 (str "Your zip code is: " (:zip (first @zip-info)))]
    [:h3 "Air quality info"]
-   [:p (str "Pollutant: " (:Name (first @air-info)))]
-   [:p (str "Air Quality Index: " (:AQI (first @air-info)))]
-   [:p (str "Pollutant: " (:Name (nth @air-info 1)))]
-   [:p (str "Air Quality Index: " (:AQI (nth @air-info 1)))]
+   [:p (str "Pollutant: " (:name (first @air-info)))]
+   [:p (str "Air Quality Index: " (:AQI (first @air-info)) ", " (:level (first @air-info)))]
+   [:p (str "Pollutant: " (:name (nth @air-info 1)))]
+   [:p (str "Air Quality Index: " (:AQI (nth @air-info 1)) ", " (:level (nth @air-info 1)))]
    [:h3 "Pollen info"]
-   [:p (str "Pollen index for today is: " (:Index @pollen-info))]
-   [:p (str "Main triggers: " (:Name (:Triggers @pollen-info)))]
+   [:p (str "Pollen index for today is: " (:index @pollen-info) ", " (:level @pollen-info))]
+   [:p (str "Main triggers: " (:Name (:triggers @pollen-info)))]
    [:h3 "Weather info"]
    [:p (str (:description @weather-info) ". " "Temperature: " (:temperature @weather-info) "°F")]])
 
@@ -97,8 +97,8 @@ Our mission is to improve the quality of life through timely and accurate inform
     (println "Air pollution information")
     ;(println (str (:ParameterName (nth body 1)) " index is: " (:AQI (nth body 1)) ", " (:Name (:Category (nth body 1)))))
     (println (str (:ParameterName (first body)) " index is: " (:AQI (first body)) ", " (:Name (:Category (first body)))))
-    (swap! air-info conj {:AQI (:AQI (first body)) :Name (:ParameterName (first body))})
-    (swap! air-info conj {:AQI (:AQI (nth body 1)) :Name (:ParameterName (nth body 1))})))
+    (swap! air-info conj {:AQI (:AQI (first body)) :name (:ParameterName (first body)) :level (:Name (:Category (first body)))})
+    (swap! air-info conj {:AQI (:AQI (nth body 1)) :name (:ParameterName (nth body 1)) :level (:Name (:Category (nth body 1)))})))
 
 (get-air)
 
@@ -119,12 +119,23 @@ Our mission is to improve the quality of life through timely and accurate inform
   (let [resp (client/get (str "https://www.pollen.com/api/forecast/current/pollen/" (:zip (first @zip-info))) {:headers {:User-Agent (str "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"), :Referer (str "https://www.pollen.com/api/forecast/current/pollen/08865")}})
         body (json/read-str (resp :body)
                             :key-fn keyword)]
-    (swap! pollen-info assoc :Index (:Index (nth (:periods (:Location body)) 1)))
-    (swap! pollen-info assoc :Triggers (first (:Triggers (nth (:periods (:Location body)) 1))))
+    (swap! pollen-info assoc :index (:Index (nth (:periods (:Location body)) 1)))
+    (swap! pollen-info assoc :triggers (first (:Triggers (nth (:periods (:Location body)) 1))))
     (println "Pollen information")
     (println (str "Current polen index: " (:Index (nth (:periods (:Location body)) 1))))))
 
 (get-pollen)
+
+(defn pollen-level [index]
+  (cond
+    (> index 9.6) "High"
+    (> index 7.2) "Medium High"
+    (> index 4.8) "Medium"
+    (> index 2.4) "Low Medium"
+    :else "Low"))
+
+(pollen-level (:index @pollen-info))
+(swap! pollen-info assoc :level (pollen-level (:index @pollen-info)))
 
 ;; (client/get
 ;;  "http://yoursite.com/some-url"
