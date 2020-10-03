@@ -24,7 +24,7 @@
     [:a {:href "/" :style {:padding "10px"}} "Home page"]
     [:a {:href "/json" :style {:padding "10px"}} "JSON response"]
     [:a {:href "/about" :style {:padding "10px"}} "About page"]]
-   [:h3 (str "Your zip code is: " (:zip (first @zip-info)))]
+   [:h3 (str "Information for the US ZIP: " (:zip (first @zip-info)))]
    [:h3 "Air quality info"]
    [:p (str "Pollutant: " (:name (first @air-info)))]
    [:p (str "Air Quality Index: " (:AQI (first @air-info)) ", " (:level (first @air-info)))]
