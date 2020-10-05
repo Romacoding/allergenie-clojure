@@ -92,11 +92,10 @@ Our mission is to improve the quality of life through timely and accurate inform
 
 (defn get-air []
   (let [airkey (System/getenv "AIRKEY")
-        resp (client/get (str "http://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=" (:zip (first @zip-info)) "&API_KEY=" (:airkey env)))
+        resp (client/get (str "http://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=" (:zip (first @zip-info)) "&API_KEY=" airkey))
         body (json/read-str (resp :body)
                             :key-fn keyword)]
     (println "Air pollution information")
-    (println airkey)
     ;(println (str (:ParameterName (nth body 1)) " index is: " (:AQI (nth body 1)) ", " (:Name (:Category (nth body 1)))))
     (println (str (:ParameterName (first body)) " index is: " (:AQI (first body)) ", " (:Name (:Category (first body)))))
     (swap! air-info conj {:AQI (:AQI (first body)) :name (:ParameterName (first body)) :level (:Name (:Category (first body)))})
@@ -105,7 +104,8 @@ Our mission is to improve the quality of life through timely and accurate inform
 (get-air)
 
 (defn get-weather []
-  (let [resp (client/get (str "http://api.openweathermap.org/data/2.5/weather?zip=" (:zip (first @zip-info)) ",us&appid=" (:weatherkey env)))
+  (let [weatherkey (System/getenv "WEATHERKEY")
+        resp (client/get (str "http://api.openweathermap.org/data/2.5/weather?zip=" (:zip (first @zip-info)) ",us&appid=" weatherkey))
         body (json/read-str (resp :body)
                             :key-fn keyword)]
     (swap! weather-info assoc :description (str/capitalize (:description (first
