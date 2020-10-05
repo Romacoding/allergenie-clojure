@@ -91,10 +91,12 @@ Our mission is to improve the quality of life through timely and accurate inform
 (get-zip)
 
 (defn get-air []
-  (let [resp (client/get (str "http://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=" (:zip (first @zip-info)) "&API_KEY=" (:airkey env)))
+  (let [airkey (Integer/parseInt (System/getenv "AIRKEY"))
+        resp (client/get (str "http://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=" (:zip (first @zip-info)) "&API_KEY=" (:airkey env)))
         body (json/read-str (resp :body)
                             :key-fn keyword)]
     (println "Air pollution information")
+    (println airkey)
     ;(println (str (:ParameterName (nth body 1)) " index is: " (:AQI (nth body 1)) ", " (:Name (:Category (nth body 1)))))
     (println (str (:ParameterName (first body)) " index is: " (:AQI (first body)) ", " (:Name (:Category (first body)))))
     (swap! air-info conj {:AQI (:AQI (first body)) :name (:ParameterName (first body)) :level (:Name (:Category (first body)))})
