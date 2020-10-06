@@ -18,7 +18,7 @@ FIXME: description
 
 ## Installation
 
-Download from http://.
+Download from https://github.com/Romacoding/allergenie-clojure.
 
 ## Usage
 
