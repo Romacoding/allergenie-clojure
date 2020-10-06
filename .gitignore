@@ -13,4 +13,3 @@ pom.xml.asc
 .calva
 config.edn
 unusedcode.clj
-pollen.clj
