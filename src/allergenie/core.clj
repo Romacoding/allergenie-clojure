@@ -5,7 +5,6 @@
             [rum.core :refer [defc render-static-markup]]
             [config.core :refer [env]]
             [clojure.data.json :as json]
-            [clojure.pprint :refer [pprint]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [allergenie.util :refer [get-pollen calc-wind-dir calc-pollen-level get-air get-weather]])
   (:gen-class))
@@ -17,13 +16,12 @@
 
 (reset! air-info (get-air (:zip @zip-info)))
 
-(swap! weather-info merge (get-weather (:zip @zip-info)))
+(reset! weather-info (get-weather (:zip @zip-info)))
 
-(pprint (get-air (:zip @zip-info)))
-
-(swap! pollen-info merge (get-pollen (:zip @zip-info)))
+(reset! pollen-info (get-pollen (:zip @zip-info)))
 
 (swap! pollen-info assoc :level (calc-pollen-level (:index @pollen-info)))
+
 (swap! weather-info assoc :wind-dir (calc-wind-dir (num (:wind-deg @weather-info))))
 
 (defc main-page []
@@ -65,25 +63,22 @@
 Our mission is to improve the quality of life through timely and accurate information intended to assist all allergy sufferers."]
    [:a {:href "/"} "Home page"]])
 
-(defn return-json [req]
-  {:status  200
-   :headers {"Content-Type" "text/json"}
-   :body    (str (json/write-str @pollen-info))})
-
 (defn pollen-page [req]
-  (swap! zip-info assoc :zip (:zip (:params req)))
-  (swap! pollen-info merge (get-pollen (:zip @zip-info)))
-  (get-air (:zip @zip-info))
-  (get-weather (:zip @zip-info))
+  (reset! zip-info {:zip (:zip (:params req))})
+  (reset! air-info (get-air (:zip @zip-info)))
+  (reset! weather-info (get-weather (:zip @zip-info)))
+  (reset! pollen-info (get-pollen (:zip @zip-info)))
+  (swap! pollen-info assoc :level (calc-pollen-level (:index @pollen-info)))
+  (swap! weather-info assoc :wind-dir (calc-wind-dir (num (:wind-deg @weather-info))))
+  
   {:status  200
    :headers {"Content-Type" "text/html"}
-   :body (str "Zip updated to " (:zip @zip-info) "<br/><a href='/'>Home page</>" )})
+   :body (str "Zip updated to " (:zip @zip-info) "<br/><a href='/'>Home page</>")})
 
 (defroutes app
   (GET "/" [] (render-static-markup (main-page)))
   (GET "/about" [] (render-static-markup (about-page)))
   (GET "/pollen" [] pollen-page)
-  (GET "/json" [] return-json)
   (not-found "<h1>Sorry, page not found!</h1>"))
 
 (defn -main
