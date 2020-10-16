@@ -10,7 +10,12 @@
             [allergenie.components.glossary :refer [glossary-page]]
             [allergenie.components.about :refer [about-page]]
             [allergenie.components.journal :refer [journal-page]]
-            [allergenie.components.nav :refer [nav-bar]])
+            [allergenie.components.nav :refer [nav-bar]]
+            [allergenie.components.footer :refer [footer]]
+            [allergenie.components.weather :refer [weather]]
+            [allergenie.components.input :refer [input]]
+            [allergenie.components.pollen :refer [pollen]]
+            [allergenie.components.air :refer [air]])
   (:gen-class))
 
 (def pollen-info (atom {}))
@@ -36,18 +41,9 @@
          [:body
           [:div {:class "container"}
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
-           
            (nav-bar)
-
-           [:div {:class "box"}
-            [:form {:action "/info"}
-             [:label {:for "zip"} "Change your location"] [:br]
-             [:input {:class "input m-4" :name "zip" :type "tel" :id "zip" :placeholder "enter your zip code" :required ""}]
-             [:input {:class "button is-info m-4" :type "submit" :value "Submit"}]]]
-
-           [:footer {:class "footer"}
-            [:div {:class "content has-text-centered"}
-             [:p [:strong "AllerGenie"] " by " [:a {:href "https://ostash.dev"} "© Roman Ostash 2020"]]]]]]))
+           (input)
+           (footer)]]))
 
 
 (defn forecast-page [req]
@@ -65,44 +61,21 @@
          [:body
           [:div {:class "container"}
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
-          
+
            (nav-bar)
 
-           [:div {:class "box"}
-            [:form {:action "/info"}
-             [:label {:for "zip"} "Change your location"] [:br]
-             [:input {:class "input m-4" :name "zip" :type "tel" :id "zip" :placeholder "enter your zip code" :required ""}]
-             [:input {:class "button is-info m-4" :type "submit" :value "Submit"}]]]
+           (input)
 
            [:h3 {:class "title is-3 has-text-centered m-6"} (str "Information for: " (:location @pollen-info) " " (:zip @zip-info))]
 
            [:div {:class "box columns is-8"}
-            [:div {:class "column card m-4"}
-             [:h3 {:class "title is-3"} "Air quality info"]
-             (let [pollutans @air-info]
-               (for [pollutant pollutans]
-                 [:div {:class "m-2"}
-                  [:p (str "Pollutant: " (:name pollutant))]
-                  [:p (str "Air Quality Index: " (:aqi pollutant) ", " (:level pollutant))]]))]
+            
+           (air @air-info)
+           
+           (pollen @pollen-info)
 
-            [:div {:class "column card m-4"}
-             [:h3 {:class "title is-3"} "Pollen info"]
-             [:p {:class "m-2"} (str "Pollen index for today is: " (:index @pollen-info) ", " (:level @pollen-info))]
-             [:progress {:class "progress is-success" :value (str (:index @pollen-info)) :max "12"} (:index @pollen-info)]
-             [:p (str "Main allergens: " (:triggers @pollen-info))]]
-
-            [:div {:class "column card m-4"}
-             [:h3 {:class "title is-3"} "Weather info"]
-             [:p
-              [:img {:src (str "http://openweathermap.org/img/wn/" (:icon @weather-info) "@2x.png")}]]
-             [:p {:class "m-2"} (str (:description @weather-info))]
-             [:p {:class "m-2"} (str "Temperature: " (:temperature @weather-info) "°F")]
-             [:p {:class "m-2"} (str "Humidity: ") (:humidity @weather-info) "%"]
-             [:p {:class "m-2"} (str "Wind speed: ") (:wind-speed @weather-info) "Mph"]
-             [:p {:class "m-2"} (str "Wind direction: ") (:wind-dir @weather-info)]]]]]
-          [:footer {:class "footer"}
-           [:div {:class "content has-text-centered"}
-            [:p [:strong "AllerGenie"] " by " [:a {:href "https://ostash.dev"} "© Roman Ostash 2020"]]]]))
+           (weather @weather-info)]]]
+         (footer)))
 
 (defroutes app
   (GET "/" [] main-page)
