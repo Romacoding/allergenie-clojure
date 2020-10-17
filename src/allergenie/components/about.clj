@@ -14,5 +14,6 @@
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
            (nav-bar)
            [:h3 {:class "title is-3 has-text-centered m-6"} "About the project"]
+           [:div {:class "box m-4"}
            [:p "AllerGenie provides daily air quality, pollen and weather forecasts.\n 
-                Our mission is to improve the quality of life through timely and accurate information intended to assist all allergy sufferers."]]]))
+                Our mission is to improve the quality of life through timely and accurate information intended to assist all allergy sufferers."]]]]))

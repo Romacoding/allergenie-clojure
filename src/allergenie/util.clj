@@ -39,22 +39,22 @@
 
 (defn calc-wind-dir [deg]
   (let [val (Math/floor (+ (/ deg 22.5) 0.5))
-        arr ["N"
-             "NNE"
-             "NE"
-             "ENE"
-             "E"
-             "ESE"
-             "SE"
-             "SSE"
-             "S"
-             "SSW"
-             "SW"
-             "WSW"
-             "W"
-             "WNW"
-             "NW"
-             "NNW"]]
+        arr ["&#8593 N"
+             "&#8599 NNE"
+             "&#8599 NE"
+             "&#8599 ENE"
+             "&#8594 E"
+             "&#8600 ESE"
+             "&#8600 SE"
+             "&#8600 SSE"
+             "&#8595 S"
+             "&#8601 SSW"
+             "&#8601 SW"
+             "&#8601 WSW"
+             "&#8592 W"
+             "&#8598 WNW"
+             "&#8598 NW"
+             "&#8598 NNW"]]
     (nth arr (mod val 16))))
 
 (defn calc-pollen-level [index]
