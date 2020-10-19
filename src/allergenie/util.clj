@@ -64,3 +64,9 @@
     (> index 4.8) "Medium"
     (> index 2.4) "Low Medium"
     :else "Low"))
+
+(defn calc-pollen-color [index]
+  (cond
+    (> index 9.6) "is-danger"
+    (> index 4.8) "is-warning"
+    :else "is-success"))

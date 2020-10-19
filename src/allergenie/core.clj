@@ -6,7 +6,7 @@
             [hiccup.page :refer :all]
             [config.core :refer [env]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [allergenie.util :refer [get-pollen calc-wind-dir calc-pollen-level get-air get-weather]]
+            [allergenie.util :refer [get-pollen calc-wind-dir calc-pollen-level get-air get-weather calc-pollen-color]]
             [allergenie.components.glossary :refer [glossary-page]]
             [allergenie.components.about :refer [about-page]]
             [allergenie.components.journal :refer [journal-page]]
@@ -31,6 +31,8 @@
 
 (swap! pollen-info assoc :level (calc-pollen-level (:index @pollen-info)))
 
+(swap! pollen-info assoc :level-color (calc-pollen-color (:index @pollen-info)))
+
 (swap! weather-info assoc :wind-dir (calc-wind-dir (num (:wind-deg @weather-info))))
 
 (defn main-page [_]
@@ -52,6 +54,7 @@
   (reset! weather-info (get-weather (:zip @zip-info)))
   (reset! pollen-info (get-pollen (:zip @zip-info)))
   (swap! pollen-info assoc :level (calc-pollen-level (:index @pollen-info)))
+  (swap! pollen-info assoc :level-color (calc-pollen-color (:index @pollen-info)))
   (swap! weather-info assoc :wind-dir (calc-wind-dir (num (:wind-deg @weather-info))))
 
   (html5 {:lang "en"}

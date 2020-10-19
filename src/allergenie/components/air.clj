@@ -8,7 +8,12 @@
    [:div {:class "m-4"}
    (let [pollutans state]
      (for [pollutant pollutans]
-       [:div {:class "m-3"}
-        [:p (str "Pollutant: " (:name pollutant))]
-        [:p (str "Air Quality Index: " (:aqi pollutant) ", " (:level pollutant))]
-        [:progress {:class "progress is-success" :value (:aqi pollutant) :max "500"} (:aqi pollutant)]]))]])
+       (let [air-color (cond
+                           (> (:aqi pollutant) 200) "is-danger"
+                           (> (:aqi pollutant) 100) "is-warning"
+                           :else "is-success")]
+         [:div {:class "m-3"}
+          [:p (str "Pollutant: " (:name pollutant))]
+          [:p (str "Air Quality Index: " (:aqi pollutant) ", " (:level pollutant))]
+          [:progress {:class (str "progress " air-color) :value (:aqi pollutant) :max "500"} (:aqi pollutant)]]
+         )))]])
