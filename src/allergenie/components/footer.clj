@@ -3,7 +3,7 @@
   []
   [:footer {:class "footer"}
    [:div {:class "content has-text-centered"}
-    [:p [:strong "AllerGenie"] " by " [:a {:href "https://ostash.dev" :target "_blank"} "© Roman Ostash 2020"]]
+    [:p [:strong "AllerGenie© 2020"] " by " [:a {:href "https://ostash.dev" :target "_blank"} "Roman Ostash"]]
     [:p "Information is provided by " 
      [:a {:href "https://www.pollen.com/" :target "_blank" :rel "noopener noreferrer"} "IQVIA, "]
      [:a {:href "https://openweathermap.org/" :target "_blank" :rel "noopener noreferrer"} "OpenWeather, "]
