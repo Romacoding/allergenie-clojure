@@ -12,7 +12,7 @@
         body (json/read-str (resp :body)
                             :key-fn keyword)]
 
-    (assoc {} :location (get-in body [:Location :DisplayLocation]) :triggers (get-in body [:Location :periods 1 :Triggers 0 :Name]) :index (get-in body [:Location :periods 1 :Index]))))
+    (assoc {} :location (get-in body [:Location :DisplayLocation]) :triggers (get-in body [:Location :periods 1 :Triggers]) :index (get-in body [:Location :periods 1 :Index]))))
 
 (defn get-air [zip]
   (let [airkey (or (System/getenv "AIRKEY") (:airkey env))
