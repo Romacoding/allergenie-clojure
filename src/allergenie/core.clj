@@ -27,15 +27,14 @@
   (html5 {:lang "en"}
          [:head [:title "AllerGenie"]
           (include-css "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css")
-          #_(include-js "/script.js")
+          (include-js "/script.js")
           [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
          [:body
           [:div {:class "container"}
            [:h1 {:class "title is-1 has-text-centered m-4"} "AllerGenie"]
            (nav-bar)
            (input)
-           (footer)
-           ]]))
+           (footer)]]))
 
 (defn forecast-page [req]
   (reset! zip-info {:zip (:zip (:params req))})
@@ -57,9 +56,9 @@
            (input)
            [:h3 {:class "title is-3 has-text-centered m-6"} (str "Information for: " (:location @pollen-info) " " (:zip @zip-info))]
            [:div {:class "box columns is-8"}
-           (air @air-info)
-           (pollen @pollen-info)
-           (weather @weather-info)]]]
+            (air @air-info)
+            (pollen @pollen-info)
+            (weather @weather-info)]]]
          (footer)))
 
 (defroutes app
