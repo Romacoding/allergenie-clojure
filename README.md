@@ -1,44 +1,41 @@
 # AllerGenie
 
-Web application build with Clojure.
+Modern Web Application build with love and Clojure.
 
 ## Technology used:
 
 Hosting - https://heroku.com/<br/>
-Front End/Back End - Clojure https://clojure.org<br/>
+Front End/Back End - Clojure with some JavaScript and HTML/CSS
+
+## API Used:
+
+https://www.pollen.com/ - for the pollen info.
+https://openweathermap.org/ - for the weather forecast.
+https://www.airnow.gov/ - for the Air Quality Index in US.
 
 ## Link
 
 [AllerGenie](https://clojure-allergenie.herokuapp.com)
 
-
-# test
-
-FIXME: description
-
 ## Installation
 
-Download from https://github.com/Romacoding/allergenie-clojure.
+Clone or download sourcecode from https://github.com/Romacoding/allergenie-clojure.
 
 ## Usage
 
-    $ java -jar allergenie-0.1.0-standalone.jar [args]
+    "$ lein run dev" for development or "lein run" for the production version.
 
-## Options
+    The app will be avalible on localhost:3000.
 
-FIXME: listing of options this app accepts.
+## API keys
 
-## Examples
+Create config.edn file in /resources directory with your API keys.
 
-...
+Ex. {:port "3000", :airkey "Your airnow key", :weatherkey "Your openweather key"}
 
 ### Bugs
 
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+No bugs reported yet.
 
 ## License
 
