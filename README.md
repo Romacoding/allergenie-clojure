@@ -9,8 +9,8 @@ Front End/Back End - Clojure with some JavaScript and HTML/CSS
 
 ## API Used:
 
-https://www.pollen.com/ - for the pollen info.
-https://openweathermap.org/ - for the weather forecast.
+https://www.pollen.com/ - for the pollen info.<br/>
+https://openweathermap.org/ - for the weather forecast.<br/>
 https://www.airnow.gov/ - for the Air Quality Index in US.
 
 ## Link
@@ -19,19 +19,19 @@ https://www.airnow.gov/ - for the Air Quality Index in US.
 
 ## Installation
 
-Clone or download sourcecode from https://github.com/Romacoding/allergenie-clojure.
+Clone or download source code from https://github.com/Romacoding/allergenie-clojure.
 
 ## Usage
 
     "$ lein run dev" for development or "lein run" for the production version.
 
-    The app will be avalible on localhost:3000.
+The app will be avalible on localhost:3000.
 
 ## API keys
 
 Create config.edn file in /resources directory with your API keys.
 
-Ex. {:port "3000", :airkey "Your airnow key", :weatherkey "Your openweather key"}
+    Ex. {:port "3000", :airkey "Your airnow key", :weatherkey "Your openweather key"}
 
 ### Bugs
 
