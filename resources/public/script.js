@@ -8,7 +8,6 @@ function geoFindMe() {
     const result = await fetch(uri)
       .then((response) => response.json())
       .then((data) => data);
-    console.log(result);
     const zip = result.address.postcode.slice(0,5);
     status.textContent = `It looks like your zip is: ${zip}`;
   }
