@@ -1,18 +1,17 @@
 (ns allergenie.pages.glossary
-  (:require [hiccup.page :refer [html5 include-css]]
+  (:require [hiccup.page :refer [html5]]
             #_[hiccup.core :refer :all]
-            [allergenie.components.nav :refer [nav-bar]]))
+            [allergenie.components.head :as h]
+            [allergenie.components.nav :as n]))
 
 (defn glossary-page
   [_]
   (html5 {:lang "en"}
-         [:head [:title "AllerGenie"]
-          (include-css "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css")
-          [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
+         (h/head)
          [:body
           [:div {:class "container"}
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
-           (nav-bar)
+           (n/nav-bar)
            [:h3 {:class "title is-3 has-text-centered m-6"} "Glossary and terms"]
            [:div {:class "box m-4"}
             [:p {:class "title m-4"} "Pollen Index Levels"]

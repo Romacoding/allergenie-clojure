@@ -3,13 +3,14 @@
             [compojure.core :refer [defroutes GET]]
             [compojure.route :refer [not-found]]
             #_[hiccup.core :refer :all]
-            [hiccup.page :refer [html5 include-css include-js]]
+            [hiccup.page :refer [html5 include-js]]
             [config.core :refer [env]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [allergenie.util :as util]
             [allergenie.pages.glossary :as g]
             [allergenie.pages.about :as a]
             [allergenie.pages.journal :as j]
+            [allergenie.components.head :as h]
             [allergenie.components.nav :as n]
             [allergenie.components.footer :as f]
             [allergenie.components.weather :as w]
@@ -25,16 +26,14 @@
 
 (defn main-page [_]
   (html5 {:lang "en"}
-         [:head [:title "AllerGenie"]
-          (include-css "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css")
-          (include-js "/script.js")
-          [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
+         (h/head)
          [:body
           [:div {:class "container"}
            [:h1 {:class "title is-1 has-text-centered m-4"} "AllerGenie"]
            (n/nav-bar)
            (i/input)
-           (f/footer)]]))
+           (f/footer)]
+          (include-js "/script.js")]))
 
 (defn forecast-page [req]
   (reset! zip-info {:zip (or (:zip (:params req)) "12345")})
@@ -46,9 +45,7 @@
   (swap! weather-info assoc :wind-dir (util/calc-wind-dir (num (:wind-deg @weather-info))))
 
   (html5 {:lang "en"}
-         [:head [:title "AllerGenie"]
-          (include-css "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css")
-          [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
+         (h/head)
          [:body
           [:div {:class "container"}
            [:h1 {:class "title is-1 has-text-centered m-4"} "AllerGenie"]

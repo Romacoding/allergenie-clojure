@@ -1,18 +1,17 @@
 (ns allergenie.pages.journal
-  (:require [hiccup.page :refer [html5 include-css]]
+  (:require [hiccup.page :refer [html5]]
             #_[hiccup.core :refer :all]
-            [allergenie.components.nav :refer [nav-bar]]))
+            [allergenie.components.head :as h]
+            [allergenie.components.nav :as n]))
 
 (defn journal-page
   [_]
   (html5 {:lang "en"}
-         [:head [:title "AllerGenie"]
-          (include-css "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css")
-          [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
+         (h/head)
          [:body
           [:div {:class "container"}
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
-           (nav-bar)
+           (n/nav-bar)
            [:h2 {:class "title is-3 has-text-centered m-6"} "Your allergy journal"]
            [:h3 {:class "subtitle has-text-centered m-6"}  "Symptoms you are experiencing. Check all that apply."]
            [:div {:class "box m-4"} (let [pollutans ["Coughing" "Wheezing" "Shortness of Breath" "Fatigue" "Sore Throat" "Nasal Congestion" "Sneezing" "Itchy Eyes" "Runny Nose" "Red Eyes" "Headache" "Watery Eyes"]]
