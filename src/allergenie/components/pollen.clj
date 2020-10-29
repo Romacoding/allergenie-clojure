@@ -10,5 +10,5 @@
     [:progress {:class (str "progress " (:level-color state)) :value (:index state) :max "12"} (:index state)]
     [:p (str "Main allergens:")]
     (let [triggers (:triggers state)]
-     (for [trigger triggers]
-       [:p (:Name trigger)]))]])
+      (for [trigger triggers]
+        [:p (:Name trigger)]))]])

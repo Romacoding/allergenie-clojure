@@ -1,6 +1,5 @@
 (ns allergenie.pages.journal
   (:require [hiccup.page :refer [html5]]
-            #_[hiccup.core :refer :all]
             [allergenie.components.head :as h]
             [allergenie.components.nav :as n]))
 
