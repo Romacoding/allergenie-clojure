@@ -40,9 +40,9 @@
   (reset! air-info (util/get-air (:zip @zip-info)))
   (reset! weather-info (util/get-weather (:zip @zip-info)))
   (reset! pollen-info (util/get-pollen (:zip @zip-info)))
-  (swap! pollen-info assoc :level (util/calc-pollen-level (:index @pollen-info)))
-  (swap! pollen-info assoc :level-color (util/calc-pollen-color (:index @pollen-info)))
-  (swap! weather-info assoc :wind-dir (util/calc-wind-dir (num (:wind-deg @weather-info))))
+  #_(swap! pollen-info assoc :level (util/calc-pollen-level (:index @pollen-info)))
+  #_(swap! pollen-info assoc :level-color (util/calc-pollen-color (:index @pollen-info)))
+  #_(swap! weather-info assoc :wind-dir (util/calc-wind-dir (num (:wind-deg @weather-info))))
 
   (html5 {:lang "en"}
          (h/head)
