@@ -1,1 +1,1 @@
-web: lein run -m allergenie.core
+web: lein run -m allergenie.app

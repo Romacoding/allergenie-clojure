@@ -1,6 +1,6 @@
-(ns allergenie.components.about
-  (:require [hiccup.page :refer :all]
-            [hiccup.core :refer :all]
+(ns allergenie.pages.about
+  (:require [hiccup.page :refer [html5 include-css]]
+            #_[hiccup.core :refer :all]
             [allergenie.components.nav :refer [nav-bar]]))
 
 (defn about-page

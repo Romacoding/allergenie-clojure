@@ -10,6 +10,7 @@ function geoFindMe() {
       .then((data) => data);
     const zip = result.address.postcode.slice(0,5);
     status.textContent = `It looks like your zip is: ${zip}`;
+    window.location.replace(`/info?zip=${zip}`);
   }
 
   function error() {

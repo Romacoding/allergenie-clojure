@@ -12,7 +12,7 @@
                  [clj-http "3.10.2"]
                  [org.clojure/data.json "1.0.0"]
                  [hiccup "1.0.5"]]
-  :main ^:skip-aot allergenie.core
+  :main ^:skip-aot allergenie.app
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
   :min-lein-version "2.0.0")
