@@ -1,14 +1,17 @@
 (ns allergenie.app
   (:require [ring.adapter.jetty :refer [run-jetty]]
-            [compojure.core :refer [defroutes GET]]
+            [compojure.core :refer [defroutes GET POST DELETE]]
             [compojure.route :refer [not-found]]
             [hiccup.page :refer [html5 include-js]]
             [config.core :refer [env]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [ring.util.response :as resp]
             [allergenie.util :as util]
+            [allergenie.db :as db]
             [allergenie.pages.glossary :as g]
             [allergenie.pages.about :as a]
             [allergenie.pages.journal :as j]
+            [allergenie.pages.record :as r]
             [allergenie.components.head :as head]
             [allergenie.components.header :as h]
             [allergenie.components.nav :as n]
@@ -47,8 +50,8 @@
              (h/header)
              (n/nav-bar)
              (i/input)
-             [:h3 {:class "title is-3 has-text-centered m-6"} (str "Information for: " (:location @pollen-info) " " zip)]
-             [:div {:class "box columns is-8"}
+             [:h3 {:class "title is-3 has-text-centered m-6"} (str "Information for " (:location @pollen-info) " " zip)]
+             [:div {:class "columns is-8"}
               (air/air @air-info)
               (p/pollen @pollen-info)
               (w/weather @weather-info)]]]
@@ -59,6 +62,18 @@
   (GET "/about" [] a/about-page)
   (GET "/info" [] forecast-page)
   (GET "/journal" [] j/journal-page)
+  (GET "/records/new" [] (r/edit-record nil))
+  (POST "/records" [title body]
+    (do (db/create-record title body)
+        (resp/redirect "/journal")))
+  (GET "/records/:rec-id" [rec-id] (r/record (db/get-record-by-id rec-id)))
+  (GET "/records/:rec-id/edit" [rec-id] (r/edit-record (db/get-record-by-id rec-id)))
+  (POST "/records/:rec-id" [rec-id title body]
+        (do (db/update-record rec-id title body)
+            (resp/redirect (str "/records/" rec-id))))
+  (DELETE "/records/:rec-id" [rec-id]
+          (do (db/delete-record rec-id)
+              (resp/redirect "/journal")))
   (GET "/glossary" [] g/glossary-page)
   (not-found "<h1>Sorry, page not found!</h1>"))
 

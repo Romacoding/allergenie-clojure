@@ -12,15 +12,15 @@
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
            (n/nav-bar)
            [:h3 {:class "title is-3 has-text-centered m-6"} "Glossary and terms"]
-           [:div {:class "box m-4"}
+           [:div {:class "m-6"}
             [:p {:class "title m-4"} "Pollen Index Levels"]
-             [:p {:class "m-2"} "[0.0 - 2.4] Very few individuals among the allergy-suffering public are affected."]
-             [:p {:class "m-2"} "[2.5 - 4.8] Individuals who are extremely sensitive to the predominant pollen may start to be affected."]
-             [:p {:class "m-2"} "[4.9 - 7.2] These pollen levels will likely cause symptoms for many allergy-sufferers of the seasonal predominant pollen types."]
-             [:p {:class "m-2"} "[7.3 - 9.6] A large number of people who suffer from the seasonal pollen types may be affected."]
-             [:p {:class "m-2"} "[9.7 - 12.0] Most individuals who are affected by the seasonal pollen types may suffer symptoms which are more severe on days with high pollen levels."]]
+            [:p {:class "m-2"} "[0.0 - 2.4] Very few individuals among the allergy-suffering public are affected."]
+            [:p {:class "m-2"} "[2.5 - 4.8] Individuals who are extremely sensitive to the predominant pollen may start to be affected."]
+            [:p {:class "m-2"} "[4.9 - 7.2] These pollen levels will likely cause symptoms for many allergy-sufferers of the seasonal predominant pollen types."]
+            [:p {:class "m-2"} "[7.3 - 9.6] A large number of people who suffer from the seasonal pollen types may be affected."]
+            [:p {:class "m-2"} "[9.7 - 12.0] Most individuals who are affected by the seasonal pollen types may suffer symptoms which are more severe on days with high pollen levels."]]
 
-           [:div {:class "box m-4"}
+           [:div {:class "m-6"}
             [:p {:class "title m-4"} "Air Quality Index"]
             [:p {:class "m-2"} "[0 - 50] Good. Air quality is satisfactory, and air pollution poses little or no risk."]
             [:p {:class "m-2"} "[51 - 100] Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution."]
@@ -29,7 +29,7 @@
             [:p {:class "m-2"} "[201 - 300] Health alert: The risk of health effects is increased for everyone."]
             [:p {:class "m-2"} "[301 - higher] Health warning of emergency conditions: everyone is more likely to be affected."]]
 
-           [:div {:class "box m-4"}
+           [:div {:class "m-6"}
             [:p {:class "title m-4"} "Air Pollutants"]
             [:p {:class "m-2"} "[ PM2.5 ] PM2.5 are tiny particles that are invisible to the naked eye. Their diameter is smaller than 2.5 microns - about 24 times thinner than a human hair! They include dust, dirt, soot, smoke, car exhaust and industrial pollution. These tiny particles can reach deep into your lungs and can cause inflammation in your lower airways."]
             [:p {:class "m-2"} "[ PM10 ] Coarse particulate matter (PM10) is a mixture of solid and liquid particles. They include dust, dirt, soot, smoke, car exhaust and industrial pollution. PM10 is larger than its finer relative PM2.5 but still inhalable. These particles can enter the upper airways such as your nose and throat and cause irritation."]

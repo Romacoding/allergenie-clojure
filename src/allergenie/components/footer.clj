@@ -1,7 +1,7 @@
 (ns allergenie.components.footer)
 (defn footer
   []
-  [:footer {:class "footer m-6"}
+  [:footer {:class "m-6"}
    [:div {:class "content has-text-centered"}
     [:p [:strong "AllerGenie© 2020"]]
     [:p "Developed with &#x1F5A4; by " [:a {:href "https://ostash.dev" :target "_blank"} "Roman Ostash"]]

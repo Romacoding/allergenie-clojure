@@ -14,3 +14,4 @@ pom.xml.asc
 config.edn
 unusedcode.clj
 .DS_Store
+.idea
