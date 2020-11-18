@@ -15,11 +15,14 @@
 
 (def record-coll "journal")
 
-(defn create-record [title body]
+(defn create-record [title body pollen-index weather air-index]
   (mc/insert db record-coll
              {:title   title
               :body    body
-              :created (new java.util.Date)}))
+              :created (new java.util.Date)
+              :pollen-index pollen-index
+              :air-index air-index
+              :weather weather}))
 
 (defn update-record [rec-id title body]
   (mc/update-by-id db record-coll (ObjectId.^String rec-id)
