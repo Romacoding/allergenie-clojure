@@ -45,9 +45,10 @@
                            :Referer (str "https://www.pollen.com/api/forecast/current/pollen/" zip)}})
         body (json/read-str (resp :body)
                             :key-fn keyword)
-        index (get-in body [:Location :periods 1 :Index])]
+        index (get-in body [:Location :periods 1 :Index])
+        triggers (get-in body [:Location :periods 1 :Triggers])]
 
-    (assoc {} :location (get-in body [:Location :DisplayLocation]) :triggers (get-in body [:Location :periods 1 :Triggers]) :index (get-in body [:Location :periods 1 :Index]) :level (calc-pollen-level index) :level-color (calc-pollen-color index))))
+    (assoc {} :location (get-in body [:Location :DisplayLocation]) :triggers (if (empty? triggers) [{:Name "None"}] triggers) :index (get-in body [:Location :periods 1 :Index]) :level (calc-pollen-level index) :level-color (calc-pollen-color index))))
 
 (defn get-air [zip]
   (let [airkey (or (System/getenv "AIRKEY") (:airkey env))
