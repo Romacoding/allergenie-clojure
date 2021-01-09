@@ -88,6 +88,7 @@
               [:div {:class "m-2"}
                [:h2 [:a {:class "button is-link" :href (str "/records/" (:_id a))} (:title a)]]
                [:p (-> a :body md/md-to-html-string)]
+               [:p (str "Location: " (:location a))]
                [:p (str "Weather: " (:weather a))]
                [:p (str "Air Quality Index: " (:air-index a))]
                [:p (str "Pollen index: " (:pollen-index a))]
