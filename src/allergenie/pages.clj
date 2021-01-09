@@ -90,7 +90,8 @@
                [:p (-> a :body md/md-to-html-string)]
                [:p (str "Weather: " (:weather a))]
                [:p (str "Air Quality Index: " (:air-index a))]
-               [:p (str "Pollen index: " (:pollen-index a))]])]]]))
+               [:p (str "Pollen index: " (:pollen-index a))]
+               [:p (str "Triggers: " (:triggers a))]])]]]))
 
 (defn record
   [a]

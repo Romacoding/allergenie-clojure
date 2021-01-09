@@ -81,9 +81,9 @@
    [:div {:class "m-5"}
     [:progress {:class (str "progress " (:level-color @state/pollen-info)) :value (:index @state/pollen-info) :max "12"} (:index @state/pollen-info)]
     [:p (str "Main allergens:")]
-    (or (let [triggers (:triggers @state/pollen-info)]
+    (let [triggers (:triggers @state/pollen-info)]
       (for [trigger triggers]
-        [:p (:Name trigger)])))]])
+        [:p (:Name trigger)]))]])
 
 (defn weather
   []

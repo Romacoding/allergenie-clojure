@@ -72,7 +72,7 @@
            (GET "/records/:rec-id/edit" [rec-id] (pages/edit-record (db/get-record-by-id rec-id)))
            (POST "/records" [title body]
              (let [pollen-index (:index @state/pollen-info)
-                   triggers (:triggers @state/pollen-info)
+                   triggers (:triggers (first @state/pollen-info))
                    weather (:description @state/weather-info)
                    air-index (:aqi (first @state/air-info))]
                (do (db/create-record title body pollen-index weather air-index triggers)
