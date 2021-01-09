@@ -15,3 +15,5 @@ config.edn
 unusedcode.clj
 .DS_Store
 .idea
+.clj-kondo
+.lsp
