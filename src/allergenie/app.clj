@@ -73,16 +73,16 @@
            (POST "/records" [title body]
              (let [location (:location @state/pollen-info)
                    pollen-index (:index @state/pollen-info)
-                   triggers (:Name (first @state/pollen-info))
+                   triggers (:Name (first (:triggers @state/pollen-info)))
                    weather (:description @state/weather-info)
                    air-index (:aqi (first @state/air-info))]
-               (do (db/create-record title body location pollen-index weather air-index triggers)
-                   (resp/redirect "/journal"))))
+                (db/create-record title body location pollen-index weather air-index triggers)
+                   (resp/redirect "/journal")))
            (POST "/records/:rec-id" [rec-id title body]
-             (do (db/update-record rec-id title body))
+             (db/update-record rec-id title body)
              (resp/redirect (str "/records/" rec-id)))
            (DELETE "/records/:rec-id" [rec-id]
-             (do (db/delete-record rec-id))
+             (db/delete-record rec-id)
              (resp/redirect "/journal")))
 
 (defn wrap-admin-only
