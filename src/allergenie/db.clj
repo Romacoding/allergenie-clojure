@@ -15,11 +15,12 @@
 
 (def record-coll "journal")
 
-(defn create-record [title body pollen-index weather air-index triggers]
+(defn create-record [title body location pollen-index weather air-index triggers]
   (mc/insert db record-coll
              {:title   title
               :body    body
               :created (new java.util.Date)
+              :location location
               :pollen-index pollen-index
               :air-index air-index
               :weather weather
