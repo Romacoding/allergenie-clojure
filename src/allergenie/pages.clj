@@ -73,12 +73,8 @@
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
            (components/nav-bar)
            [:h2 {:class "title is-3 has-text-centered m-6"} "Your allergy journal"]
-           [:h3 {:class "subtitle has-text-centered m-6"} "Symptoms you are experiencing. Check all that apply."]
-           [:div {:class "box m-4"} (let [symptoms ["Coughing" "Wheezing" "Shortness of Breath" "Fatigue" "Sore Throat" "Nasal Congestion" "Sneezing" "Itchy Eyes" "Runny Nose" "Red Eyes" "Headache" "Watery Eyes"]]
-                                      (for [symptom symptoms]
-                                        [:div {:class "m-2"}
-                                         [:label {:class "checkbox"}
-                                          [:input {:type "checkbox" :class "m-2"} symptom]]]))]
+           [:h3 {:class "subtitle has-text-centered m-6"} "Symptoms you might experience."]
+           [:p "Coughing, Wheezing, Shortness of Breath, Fatigue, Sore Throat, Nasal Congestion, Sneezing, Itchy Eyes, Runny Nose, Red Eyes, Headache, Watery Eyes."]
            [:div {:class "box m-4"}
             [:a {:href "/records/new" :class "button is-success m-2"} "New record"]
             [:a {:href "/admin/logout" :class "button is-warning m-2"} "Log out"]
@@ -109,7 +105,7 @@
              [:div {:class "field is-grouped"}
               [:p {:class "control"} [:a {:class "button is-primary" :href (str "/records/" (:_id a) "/edit")} "Edit"]]
               [:p {:class "control"} (form/submit-button {:class "button is-danger"} "Delete")]])
-            [:small (:created a)]
+            [:p (:created a)]
             [:h3 {:class "title"} (:title a)]
             [:p (-> a :body md/md-to-html-string)]]]]))
 
@@ -125,7 +121,7 @@
              [:post (if a (str "/records/" (:_id a)) "/records")]
              [:div {:class "field"}
               (form/label {:class "label"} "title" "Title")
-              (form/text-field {:class "input is-small" :required "" :placeholder "Record title"} "title" (:title a))]
+              (form/text-field {:class "input is-medium" :required "" :placeholder "Record title"} "title" (:title a))]
              [:div {:class "field"}
               (form/label {:class "label"} "body" "Body")
               (form/text-area {:class "textarea is-medium" :required "" :placeholder "Record your symptoms here"} "body" (:body a))]
