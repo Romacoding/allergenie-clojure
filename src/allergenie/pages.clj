@@ -125,10 +125,10 @@
              [:post (if a (str "/records/" (:_id a)) "/records")]
              [:div {:class "field"}
               (form/label {:class "label"} "title" "Title")
-              (form/text-field {:required ""} "title" (:title a))]
+              (form/text-field {:class "input is-small" :required "" :placeholder "Record title"} "title" (:title a))]
              [:div {:class "field"}
               (form/label {:class "label"} "body" "Body")
-              (form/text-area {:class "textarea" :required ""} "body" (:body a))]
+              (form/text-area {:class "textarea is-medium" :required "" :placeholder "Record your symptoms here"} "body" (:body a))]
              (anti-forgery-field)
              (form/submit-button {:class "button is-info"} "Save"))]]]))
 
@@ -151,11 +151,11 @@
                 [:div {:class "field"}
                  [:div {:class "control"}
                   (form/label {:class "label is-medium"} "login" "Login")
-                  (form/text-field {:class "input is-normal", :required "", :placeholder "Your Login"} "login")]]
+                  (form/text-field {:class "input is-normal" :required "" :placeholder "Your Login"} "login")]]
                 [:div {:class "field"}
                  [:div {:class "control"}
                   (form/label {:class "label is-medium"} "password" "Password")
-                  (form/password-field {:class "input is-normal", :required "", :placeholder "Your Password"} "password")]]
+                  (form/password-field {:class "input is-normal" :required "" :placeholder "Your Password"} "password")]]
                 (anti-forgery-field)
                 (when msg
                   [:p {:class "has-text-danger m-5"} msg])
