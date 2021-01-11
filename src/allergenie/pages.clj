@@ -73,8 +73,7 @@
            [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
            (components/nav-bar)
            [:h2 {:class "title is-3 has-text-centered m-6"} "Your allergy journal"]
-           [:h3 {:class "subtitle has-text-centered m-6"} "Symptoms you might experience."]
-           [:p "Coughing, Wheezing, Shortness of Breath, Fatigue, Sore Throat, Nasal Congestion, Sneezing, Itchy Eyes, Runny Nose, Red Eyes, Headache, Watery Eyes."]
+           [:h3 {:class "subtitle has-text-centered m-6"} "Symptoms you might experience: coughing, wheezing, shortness of breath, fatigue, sore throat, nasal congestion, sneezing, itchy eyes, runny nose, red eyes, headache, watery eyes."]
            [:div {:class "box m-4"}
             [:a {:href "/records/new" :class "button is-success m-2"} "New record"]
             [:a {:href "/admin/logout" :class "button is-warning m-2"} "Log out"]
