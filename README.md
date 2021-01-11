@@ -5,7 +5,8 @@ Modern Web Application build with love and Clojure.
 ## Technology used:
 
 Hosting - https://heroku.com/<br/>
-Front End/Back End - Clojure with some JavaScript and HTML/CSS
+Front End/Back End - Clojure with some JavaScript and HTML/CSS<br/>
+Database - MongoDB
 
 ## API Used:
 
