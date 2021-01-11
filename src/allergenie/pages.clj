@@ -104,11 +104,11 @@
            (components/nav-bar)
            [:div {:class "m-4"}
             (form/form-to
-              [:delete (str "/records/" (:_id a))]
-              (anti-forgery-field)
-              [:div {:class "field is-grouped"}
-               [:p {:class "control"} [:a {:class "button is-primary" :href (str "/records/" (:_id a) "/edit")} "Edit"]]
-               [:p {:class "control"} (form/submit-button {:class "button is-danger"} "Delete")]])
+             [:delete (str "/records/" (:_id a))]
+             (anti-forgery-field)
+             [:div {:class "field is-grouped"}
+              [:p {:class "control"} [:a {:class "button is-primary" :href (str "/records/" (:_id a) "/edit")} "Edit"]]
+              [:p {:class "control"} (form/submit-button {:class "button is-danger"} "Delete")]])
             [:small (:created a)]
             [:h3 {:class "title"} (:title a)]
             [:p (-> a :body md/md-to-html-string)]]]]))
@@ -122,33 +122,44 @@
            (components/nav-bar)
            [:div {:class "m-4"}
             (form/form-to
-              [:post (if a (str "/records/" (:_id a)) "/records")]
-              [:div {:class "field"}
-               (form/label {:class "label"} "title" "Title")
-               (form/text-field {:required ""} "title" (:title a))]
-              [:div {:class "field"}
-               (form/label {:class "label"} "body" "Body")
-               (form/text-area {:class "textarea" :required ""} "body" (:body a))]
-              (anti-forgery-field)
-              (form/submit-button {:class "button is-info"} "Save"))]]]))
+             [:post (if a (str "/records/" (:_id a)) "/records")]
+             [:div {:class "field"}
+              (form/label {:class "label"} "title" "Title")
+              (form/text-field {:required ""} "title" (:title a))]
+             [:div {:class "field"}
+              (form/label {:class "label"} "body" "Body")
+              (form/text-area {:class "textarea" :required ""} "body" (:body a))]
+             (anti-forgery-field)
+             (form/submit-button {:class "button is-info"} "Save"))]]]))
 
 (defn login-page [& [msg]]
   (html5 {:lang "en"}
          (components/head)
          [:body
-          [:div {:class "container"}
-           [:h1 {:class "title is-1 has-text-centered"} "AllerGenie"]
-           (components/nav-bar)
-           [:div {:class "m-4"}
-             (when msg
-               [:div msg])
-             (form/form-to
-               [:post "/admin/login"]
-               [:div {:class "field"}
-                (form/label {:class "label"} "login" "Login")
-                (form/text-field {:required ""} "login")]
-               [:div {:class "field"}
-                (form/label {:class "label"} "password" "Password")
-                (form/password-field {:required ""} "password")]
-               (anti-forgery-field)
-               (form/submit-button {:class "button is-info"} "Login"))]]]))
+          [:section {:class "hero is-fullheight"}
+           [:div {:class "hero-body"}
+            [:div {:class "container has-text-centered"}
+             [:h1 {:class "title is-1"} "AllerGenie"]
+             (components/nav-bar)
+             [:div {:class "column is-4 is-offset-4"}
+              [:h3 {:class "title is-3 has-text-centered m-6"} "Journal"]
+              [:hr {:class "login-hr"}]
+              [:p {:class "subtitle has-text-black"} "Please login to proceed"]
+              [:div {:class "box"}
+               (form/form-to
+                [:post "/admin/login"]
+                [:div {:class "field"}
+                 [:div {:class "control"}
+                  (form/label {:class "label is-medium"} "login" "Login")
+                  (form/text-field {:class "input is-normal", :required "", :placeholder "Your Login"} "login")]]
+                [:div {:class "field"}
+                 [:div {:class "control"}
+                  (form/label {:class "label is-medium"} "password" "Password")
+                  (form/password-field {:class "input is-normal", :required "", :placeholder "Your Password"} "password")]]
+                (anti-forgery-field)
+                (when msg
+                  [:p {:class "has-text-danger m-5"} msg])
+                [:p {:class "m-5"} ""]
+                (form/submit-button {:class "button is-block is-info is-normal is-fullwidth"} "Login"))]
+              [:p {:class "has-text-grey"}
+               [:a {:href "mailto:roman@ostash.dev"} "Need Help?"]]]]]]]))
