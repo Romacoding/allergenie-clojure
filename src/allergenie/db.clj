@@ -15,7 +15,9 @@
 
 (def record-coll "journal")
 
-(defn create-record [title body location pollen-index weather air-index triggers]
+(defn create-record 
+  "Function to create a new record in DB"
+  [title body location pollen-index weather air-index triggers]
   (mc/insert db record-coll
              {:title   title
               :body    body
@@ -26,18 +28,25 @@
               :weather weather
               :triggers triggers}))
 
-(defn update-record [rec-id title body]
+(defn update-record 
+  "Function to update a record in DB"
+  [rec-id title body]
   (mc/update-by-id db record-coll (ObjectId.^String rec-id)
                    {$set
                     {:title title
                      :body body}}))
 
-(defn delete-record [rec-id]
+(defn delete-record 
+  "Function to delete a record from DB"
+  [rec-id]
   (mc/remove-by-id db record-coll (ObjectId.^String rec-id)))
 
-(defn list-records []
+(defn list-records 
+  "Function to list records from DB"
+  []
   (mc/find-maps db record-coll))
 
-(defn get-record-by-id [rec-id]
+(defn get-record-by-id 
+  "Function to get a record by id from DB"
+  [rec-id]
   (mc/find-map-by-id db record-coll (ObjectId.^String rec-id)))
-

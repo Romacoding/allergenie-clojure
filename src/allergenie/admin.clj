@@ -6,6 +6,8 @@
 (def admin-password (or (System/getenv "ADMIN_PASS")
                         (:admin-pass env)))
 
-(defn check-login [login password]
+(defn check-login 
+  "Function to check if credentials are valid"
+  [login password]
   (and (= login admin-login)
        (= password admin-password)))

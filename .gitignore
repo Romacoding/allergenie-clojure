@@ -17,3 +17,4 @@ unusedcode.clj
 .idea
 .clj-kondo
 .lsp
+.vscode

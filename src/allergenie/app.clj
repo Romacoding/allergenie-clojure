@@ -7,7 +7,7 @@
             [compojure.route :refer [not-found]]
             [hiccup.page :refer [html5 include-js]]
             [config.core :refer [env]]
-            [allergenie.util :as util]
+            [allergenie.api :as api]
             [allergenie.db :as db]
             [allergenie.state :as state]
             [allergenie.pages :as pages]
@@ -28,9 +28,9 @@
 
 (defn forecast-page [req]
   (let [zip (or (:zip (:params req)) "12345")]
-    (reset! state/air-info (util/get-air zip))
-    (reset! state/weather-info (util/get-weather zip))
-    (reset! state/pollen-info (util/get-pollen zip))
+    (reset! state/air-info (api/get-air zip))
+    (reset! state/weather-info (api/get-weather zip))
+    (reset! state/pollen-info (api/get-pollen zip))
 
     (html5 {:lang "en"}
            (components/head)
@@ -86,7 +86,7 @@
              (resp/redirect "/journal")))
 
 (defn wrap-admin-only
-  "Middleware function to check in admin session is true"
+  "Middleware function to check if admin session is true"
   [handler]
   (fn [request]
     (if (-> request :session :admin)
