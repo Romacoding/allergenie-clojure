@@ -36,7 +36,7 @@ Create config.edn file in /resources directory with your API keys.
 
 ### Bugs
 
-No bugs reported yet.
+No bugs reported yet!
 
 ## License
 
